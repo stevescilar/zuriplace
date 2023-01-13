@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="section-content padding-y bg">
+    <div class="container">
+    
+    <!-- ============================ COMPONENT 1 ================================= -->
+
+    <div class="row">
+        <aside class="col-lg-6">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title mb-4">Billing Address</h4>
+            <form action="{% url 'place_order' %}" method="POST">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="col form-group">
+                        <label for="">First Name</label>
+                        <input type="text" name="first_name" class="form-control" required>
+                    </div>
+                    <div class="col form-group">
+                        <label for="">Last Name</label>
+                        <input type="text" name="last_name" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col form-group">
+                        <label for="">Email</label>
+                        <input type="email" name="email" class="form-control" required>
+                    </div>
+                    <div class="col form-group">
+                        <label for="">Phone Number</label>
+                        <input type="text" name="phone" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col form-group">
+                        <label for="">Region</label>
+                        <input type="text" name="region" class="form-control" required>
+                    </div>
+                    <div class="col form-group">
+                        <label for="">City</label>
+                        <input type="text" name="city" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col form-group">
+                        <label for="">Street</label>
+                        <input type="text" name="street" class="form-control">
+                    </div>
+                    <div class="col form-group">
+                        <label for="">Pickup Station</label>
+                        <input type="text" name="pickup" class="form-control" required>
+                    </div>
+                
+                    <div class="col form-group">
+                        <label for=""> Order Note </label> 
+                        <textarea name="order_note" id="" rows="2" class="form-control"></textarea>
+                    </div>
+                </div>
+            
+        </div>
+    </div> <!-- card.// -->
+    
+        </aside> <!-- col.// -->
+        <aside class="col-lg-6">
+    
+            <div class="card">
+            <div class="card-body">
+                    <!-- table -->
+                    <table class="table table-borderless table-shopping-cart">
+                        <thead class="text-muted">
+                        <tr class="small text-uppercase">
+                          <th scope="col">Product</th>
+                          <th scope="col" width="120">Quantity</th>
+                          <th scope="col" width="120">Price</th>
+                          
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for cart_item in cart_items %}
+                        <tr>
+                            <td>
+                                <figure class="itemside align-items-center">
+                                    <div class="aside"><img src="{{ cart_item.product.images.url }}" class="img-sm"></div>
+                                    <figcaption class="info">
+                                        <a href="{{ cart_item.product.get_url  }}" class="title text-dark">{{ cart_item.product.product_name }}</a>
+                                        {% if cart_item.variations.all %}
+                                            {% for item in cart_item.variations.all %}       
+                                                <p class="text-muted small"> <strong>{{ item.variation_category | capfirst }} :</strong> &nbsp; {{ item.variation_value | capfirst }} </p>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </figcaption>
+                                </figure>
+                            </td>
+                            <td> 
+                                <!-- col.// -->
+                                            <div class="col"> 
+                                                <div class="input-group input-spinner">
+                                                    
+                                                    <label for="">{{cart_item.quantity}}</label>
+
+                                                </div> <!-- input-group.// -->
+                                            </div> <!-- col.// -->
+                            </td>
+                            <td> 
+                                <div class="price-wrap"> 
+                                    <var class="price">Ksh {{ cart_item.sub_total }}</var> 
+                                    <small class="text-muted"> Ksh {{ cart_item.product.price }} each </small> 
+                                </div> <!-- price-wrap .// -->
+                            </td>
+                           
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                        </table>
+                <button type="submit" class="btn btn-primary btn-block"> Place Order </button>
+                <a href="{% url 'store' %}" class="btn btn-light btn-block">Continue Shopping</a>
+            </form>
+            </div> <!-- card-body.// -->
+            </div> <!-- card.// -->
+        
+    </aside> <!-- col.// -->
+    
+    
+    </div> <!-- row.// -->
+    <!-- ============================ COMPONENT 1 END .// ================================= -->
+    
+    </div> <!-- container .//  -->
+    </section>
+
+{% endblock %}
