@@ -51,7 +51,7 @@
                   
                   
                   <hr>
-                      <div class="row">
+                      <!-- <div class="row">
                           <div class="item-option-select">
                               <h6>Choose Color</h6>
                                 <select name="color" class="form-control" required >
@@ -61,7 +61,7 @@
                                   {% endfor %}
                                 </select>
                           </div>
-                      </div> <!-- row.// -->
+                      </div> 
                       <div class="row">
                           <div class="item-option-select" class="form-control">
                               <h6>Select Size</h6>
@@ -72,12 +72,13 @@
                                 {% endfor %}
                               </select>
                           </div>
-                      </div> 
-                      <hr>
+                      </div>  -->
+                      <!-- <hr> -->
                       {% if single_product.stock == 0 %}
                           <h5 class="text-danger">Out of stock! </h5>
                           {% else %}
-                               <button type="submit" class="btn  btn-primary"> <span class="text">Add to Cart</span> <i class="fas fa-shopping-cart"></i>  </button>
+                            <a href="https://api.whatsapp.com/send?phone=254705549257" class="btn  btn-primary"> <span class="text">Buy on WhatsApp</span> <i class="fas fa-shopping-cart"></i>  </button> </a>
+                               <!-- <button type="submit" class="btn  btn-primary"> <span class="text">Buy on WhatsApp</span> <i class="fas fa-shopping-cart"></i>  </button> -->
                       {% endif %}
                   </article> 
               </form>
